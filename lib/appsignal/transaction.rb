@@ -25,7 +25,11 @@
       if current
         current.complete!
       else
-        Appsignal.logger.error('Trying to complete current, but no transaction present')
+        Appsignal.logger.error '------------ current was nil ------------'
+        Appsignal.logger.error "Transaction id: '#{Thread.current[:appsignal_transaction_id]}'"
+        Appsignal.transactions.each do |transaction|
+          Appsignal.logger.error transaction.inspect
+        end
       end
     end
 
