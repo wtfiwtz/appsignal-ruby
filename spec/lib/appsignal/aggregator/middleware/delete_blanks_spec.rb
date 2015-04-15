@@ -33,5 +33,20 @@ describe Appsignal::Aggregator::Middleware::DeleteBlanks do
     it { should_not have_key(:empty_array) }
     it { should_not have_key(:empty_hash) }
     it { should_not have_key(:nil) }
+
+    context "with an empty string" do
+      let(:event) do
+        notification_event(
+          :name => 'something',
+          :payload => ''
+        )
+      end
+
+      it "should not crash on an empty string" do
+        expect{
+          delete_blanks.call(event) { }
+        }.to_not raise_error
+      end
+    end
   end
 end
