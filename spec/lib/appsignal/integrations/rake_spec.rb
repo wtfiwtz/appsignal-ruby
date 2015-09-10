@@ -19,18 +19,6 @@ describe "Rack integration" do
       expect( task ).to receive(:invoke_with_appsignal).with(['foo'])
     end
 
-    context "when not active" do
-      before { Appsignal.stub(:active? => false) }
-
-      it "should NOT call with appsignal monitoring" do
-        expect( task ).to_not receive(:invoke_with_appsignal).with(['foo'])
-      end
-
-      it "should call the original task" do
-        expect( task ).to receive(:invoke_without_appsignal).with(['foo'])
-      end
-    end
-
     after { task.invoke(['foo']) }
   end
 
@@ -84,6 +72,14 @@ describe "Rack integration" do
 
         it "should add the exception to the transaction" do
           expect( transaction ).to receive(:add_exception).with(exception)
+        end
+
+        context "when not active" do
+          before { Appsignal.stub(:active? => false) }
+
+          it "should NOT add the exception to the transaction" do
+            expect( transaction ).to_not receive(:add_exception)
+          end
         end
 
         context "when ignored" do
