@@ -36,10 +36,15 @@ module Appsignal
       @revision = ENV['APP_REVISION']
       @thread   = Thread.new do
         begin
-          sleep(rand(sleep_time))
+          Appsignal.logger.debug('Started agent thread')
+          rand_sleep_time = rand(sleep_time)
+          Appsignal.logger.debug("Sleeping #{rand(sleep_time)}")
+          sleep(rand_sleep_time)
           loop do
             if aggregator.has_transactions? || aggregator_queue.any?
               send_queue
+            else
+              Appsignal.logger.debug("No transactions, not sending queue")
             end
             truncate_aggregator_queue
             Appsignal.logger.debug("Sleeping #{sleep_time}")
@@ -104,6 +109,7 @@ module Appsignal
     def send_queue
       Appsignal.logger.debug('Sending queue')
       unless aggregator.has_transactions? || aggregator_queue.any?
+        Appsignal.logger.debug("No transactions, not sending queue")
         return
       end
       # Replace aggregator while making sure no thread
