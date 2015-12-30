@@ -59,7 +59,12 @@ module Appsignal
     end
 
     def stop
+      logger.debug('Stopping extension and unsubscribing')
       Appsignal::Extension.stop
+      if @subscriber
+        @subscriber.unsubscribe
+        @subscriber = nil
+      end
     end
 
     def forked
