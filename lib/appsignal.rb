@@ -63,7 +63,6 @@ module Appsignal
       Appsignal::Extension.stop
       if @subscriber
         @subscriber.unsubscribe
-        @subscriber = nil
       end
     end
 
