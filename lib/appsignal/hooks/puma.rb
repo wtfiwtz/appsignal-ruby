@@ -20,9 +20,7 @@ module Appsignal
           Appsignal.stop
         end
 
-        ::Puma.cli_config.options[:after_worker_boot] ||= []
-        ::Puma.cli_config.options[:after_worker_boot] << Proc.new do |id|
-          # We're the master and shouldn't be running
+        at_exit do
           Appsignal.stop
         end
       end
