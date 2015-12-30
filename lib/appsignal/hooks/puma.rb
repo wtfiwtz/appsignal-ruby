@@ -20,8 +20,13 @@ module Appsignal
           Appsignal.stop
         end
 
-        at_exit do
-          Appsignal.stop
+        ::Puma::Cluster.class_eval do
+          alias stop_workers_without_appsignal stop_workers
+
+          def stop_workers
+            Appsignal.stop
+            stop_workers_without_appsignal
+          end
         end
       end
     end
