@@ -146,9 +146,12 @@ describe Appsignal do
 
   describe ".stop" do
     it "should call stop on the extension" do
-      Appsignal::Extension.should_receive(:stop)
+      Appsignal::Extension.should_receive(:stop).twice
+      Appsignal.subscriber.should_receive(:unsubscribe)
+      Appsignal.stop
       Appsignal.stop
       Appsignal.active?.should be_false
+      Appsignal.subscriber.should be_nil
     end
   end
 
