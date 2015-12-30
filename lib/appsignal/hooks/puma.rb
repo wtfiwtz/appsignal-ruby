@@ -20,8 +20,8 @@ module Appsignal
           Appsignal.stop
         end
 
-        ::Puma.cli_config.options[:before_worker_fork] ||= []
-        ::Puma.cli_config.options[:before_worker_fork] << Proc.new do |id|
+        ::Puma.cli_config.options[:after_worker_boot] ||= []
+        ::Puma.cli_config.options[:after_worker_boot] << Proc.new do |id|
           # We're the master and shouldn't be running
           Appsignal.stop
         end
