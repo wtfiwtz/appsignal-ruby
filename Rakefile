@@ -28,7 +28,7 @@ EXCLUSIONS = {
 
 VERSION_MANAGERS = {
   :rbenv => 'rbenv local',
-  :rvm => 'rvm use'
+  :rvm => 'rvm use --default'
 }
 
 task :publish do
