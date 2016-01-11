@@ -118,7 +118,7 @@ end
 task :generate_bundle_and_spec_all do
   VERSION_MANAGERS.each do |version_manager, switch_command|
     out = []
-    if version_manager == 'rvm use'
+    if version_manager == :rvm
       out << '#!/bin/bash --login'
     else
       out << '#!/bin/sh'
