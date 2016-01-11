@@ -118,7 +118,7 @@ end
 task :generate_bundle_and_spec_all do
   VERSION_MANAGERS.each do |version_manager, switch_command|
     out = []
-    if version_manager == :rvm
+    if version_manager == 'rvm use'
       out << '#!/bin/bash --login'
     else
       out << '#!/bin/sh'
@@ -128,6 +128,7 @@ task :generate_bundle_and_spec_all do
     RUBY_VERSIONS.each do |version|
       out << "echo 'Switching to #{version}'"
       out << "#{switch_command} #{version} || { echo 'Switching Ruby failed'; exit 1; }"
+      out << "echo 'Compiling extension'"
       out << 'cd ext && rm -f libappsignal.a && ruby extconf.rb && make clean && make && cd ..'
       GEMFILES.each do |gemfile|
         unless EXCLUSIONS[gemfile] && EXCLUSIONS[gemfile].include?(version)
