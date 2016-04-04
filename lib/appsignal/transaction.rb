@@ -42,6 +42,8 @@ module Appsignal
       @options = options
       @options[:params_method] ||= :params
 
+      Appsignal.logger.info("Starting transaction with id '#{@transaction_id}' and namespace '#{@namespace}'")
+
       @transaction_index = Appsignal::Extension.start_transaction(@transaction_id, @namespace)
     end
 
