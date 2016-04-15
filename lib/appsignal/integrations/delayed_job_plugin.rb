@@ -27,6 +27,7 @@ module Appsignal
           job_data = job.job_data
         end
 
+        Appsignal.logger.debug "Starting DJ transaction #{class_name}##{method_name}"
         Appsignal.monitor_transaction(
           'perform_job.delayed_job',
           :class    => class_name,
@@ -42,6 +43,7 @@ module Appsignal
         ) do
           block.call(job)
         end
+        Appsignal.logger.debug 'DJ transaction done'
       end
     end
   end
