@@ -37,14 +37,14 @@ describe "extension loading and operation" do
       end
 
       context "with a transaction" do
-        subject { Appsignal::Extension.start_transaction('request_id', 'http_request') }
+        subject { Appsignal::Extension.start_transaction('request_id', 'http_request', 0) }
 
         it "should have a start_event method" do
-          subject.start_event
+          subject.start_event(0)
         end
 
         it "should have a finish_event method" do
-          subject.finish_event('name', 'title', 'body', 0)
+          subject.finish_event('name', 'title', 'body', 0, 0)
         end
 
         it "should have a record_event method" do
@@ -72,7 +72,7 @@ describe "extension loading and operation" do
         end
 
         it "should have a finish method" do
-          subject.finish
+          subject.finish(0)
         end
 
         it "should have a complete method" do
