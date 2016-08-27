@@ -1,7 +1,7 @@
-class MockController
-end
+if rails_present?
+  class MockController
+  end
 
-if defined?(::Rails)
   describe Appsignal::Rack::RailsInstrumentation do
     before :all do
       start_agent

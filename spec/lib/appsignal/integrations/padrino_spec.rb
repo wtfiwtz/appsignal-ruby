@@ -1,8 +1,3 @@
-begin
-  require 'padrino'
-rescue LoadError
-end
-
 if padrino_present?
   describe "Padrino integration"   do
     require File.expand_path('lib/appsignal/integrations/padrino.rb')
