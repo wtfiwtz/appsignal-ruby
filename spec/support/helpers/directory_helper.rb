@@ -1,6 +1,4 @@
 module DirectoryHelper
-  module_function
-
   def spec_dir
     APPSIGNAL_SPEC_DIR
   end
