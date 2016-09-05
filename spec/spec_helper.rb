@@ -2,6 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 ENV['PADRINO_ENV'] ||= 'test'
 
 APPSIGNAL_SPEC_DIR = File.expand_path(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(APPSIGNAL_SPEC_DIR, 'support/stubs'))
 
 Bundler.require :default
 require 'rack'
@@ -9,14 +10,17 @@ require 'rspec'
 require 'pry'
 require 'timecop'
 require 'webmock/rspec'
-require 'appsignal'
 
 Dir[File.join(APPSIGNAL_SPEC_DIR, 'support/helpers', '*.rb')].each do |f|
   require f
 end
+if DependencyHelper.rails_present?
+  Dir[File.join(DirectoryHelper.support_dir, 'rails', '*.rb')].each do |f|
+    require f
+  end
+end
+require 'appsignal'
 extend DependencyHelper
-
-$LOAD_PATH.unshift(File.join(APPSIGNAL_SPEC_DIR, 'support/stubs'))
 
 puts "Running specs in #{RUBY_VERSION} on #{RUBY_PLATFORM}\n\n"
 
