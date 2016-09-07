@@ -73,10 +73,7 @@ module Appsignal
       end
 
       def action_name(env)
-        if @options.fetch(:mounted_at, nil)
-          method, route = env['sinatra.route'].split(" ")
-          "#{method} #{@options[:mounted_at]}#{route}"
-        elsif env['SCRIPT_NAME']
+        if env['SCRIPT_NAME']
           method, route = env['sinatra.route'].split(" ")
           "#{method} #{env['SCRIPT_NAME']}#{route}"
         else

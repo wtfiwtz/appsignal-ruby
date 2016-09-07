@@ -131,14 +131,6 @@ if defined?(::Sinatra)
           Appsignal::Transaction.any_instance.should_receive(:set_action).with('GET /')
         end
 
-        context "with option to set path a mounted_at prefix" do
-          let(:options) {{ :mounted_at  => "/api/v2" }}
-
-          it "should call set_action with a prefix path" do
-            Appsignal::Transaction.any_instance.should_receive(:set_action).with("GET /api/v2/")
-          end
-        end
-
         context "with mounted modular application" do
           before { env['SCRIPT_NAME'] = '/api' }
 
