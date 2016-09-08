@@ -121,18 +121,6 @@ end
 
 Dir[File.join(helpers_dir, '*.rb')].each { |file| require file }
 
-# Add way to clear subscribers between specs
-module ActiveSupport
-  module Notifications
-    class Fanout
-      def clear_subscribers
-        @subscribers.clear
-        @listeners_for.clear
-      end
-    end
-  end
-end
-
 RSpec.configure do |config|
   config.include ConfigHelpers
   config.include EnvHelpers
@@ -160,7 +148,6 @@ RSpec.configure do |config|
   end
 
   config.after :all do
-    ActiveSupport::Notifications.notifier.clear_subscribers
     FileUtils.rm_f(File.join(project_fixture_path, 'log/appsignal.log'))
     Appsignal.config = nil
     Appsignal.logger = nil
