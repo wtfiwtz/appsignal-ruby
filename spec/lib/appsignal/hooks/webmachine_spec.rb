@@ -1,5 +1,5 @@
-if webmachine_present?
-  describe Appsignal::Hooks::WebmachineHook do
+describe Appsignal::Hooks::WebmachineHook do
+  if DependencyHelper.webmachine_present?
     context "with webmachine" do
       before(:all) do
         Appsignal::Hooks::WebmachineHook.new.install
@@ -24,6 +24,7 @@ if webmachine_present?
         ).to be_true
       end
     end
+  else
+    its(:dependencies_present?) { should be_true }
   end
-
 end
