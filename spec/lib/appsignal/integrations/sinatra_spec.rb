@@ -1,4 +1,4 @@
-if DependencyHelper.sinatra_present? && !DependencyHelper.padrino_present?
+if DependencyHelper.sinatra_present?
   ENV['APPSIGNAL_PUSH_API_KEY'] = 'key'
   require 'appsignal/integrations/sinatra'
 
