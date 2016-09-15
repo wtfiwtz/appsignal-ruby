@@ -24,7 +24,5 @@ describe Appsignal::Hooks::WebmachineHook do
         ).to be_true
       end
     end
-  else
-    its(:dependencies_present?) { should be_true }
   end
 end
