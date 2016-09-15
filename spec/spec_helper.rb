@@ -20,7 +20,6 @@ if DependencyHelper.rails_present?
   end
 end
 require 'appsignal'
-extend DependencyHelper
 
 puts "Running specs in #{RUBY_VERSION} on #{RUBY_PLATFORM}\n\n"
 

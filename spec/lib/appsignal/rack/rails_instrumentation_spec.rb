@@ -1,4 +1,4 @@
-if rails_present?
+if DependencyHelper.rails_present?
   class MockController
   end
 

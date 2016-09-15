@@ -1,5 +1,6 @@
-if sinatra_present?
+if DependencyHelper.sinatra_present?
   require 'appsignal/integrations/sinatra'
+
   describe Appsignal::Rack::SinatraInstrumentation do
     let(:settings) { double(:raise_errors => false) }
     let(:app) { double(:call => true, :settings => settings) }
